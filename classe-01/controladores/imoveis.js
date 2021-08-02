@@ -1,6 +1,5 @@
 const { imoveis } = require('../dados/imoveis');
 
-
 function consultarImoveis(req, res) {
     console.log(imoveis);
     res.json(imoveis);
