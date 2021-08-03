@@ -1,5 +1,5 @@
 const express = require('express');
-const { listarAlunos, buscarAluno, addAluno, excluirAluno } = require('./controladores/index');
+const { listarAlunos, buscarAluno, addAluno, excluirAluno } = require('./controladores/controladores');
 
 const roteador = express();
 

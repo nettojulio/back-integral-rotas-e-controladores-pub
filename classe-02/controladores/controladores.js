@@ -1,4 +1,5 @@
-const { alunos } = require('../dados/index');
+const { alunos } = require('../dados/alunos');
+const { cursos } = require('../dados/cursos')
 
 function listarAlunos(req, res) {
     res.json(alunos);
@@ -61,7 +62,7 @@ function excluirAluno(req, res) {
     }
 
     const aluno = alunos.find((aluno) => aluno.id === Number(req.params.id));
-
+    
     if (!aluno) {
         res.status(404);
         res.json({
@@ -83,6 +84,15 @@ function validarID(id) {
 }
 
 function validarDados(aluno) {
+
+    let curso = "";
+
+    for (i = 0; i < cursos.length; i++){
+        if (cursos[i] === aluno.curso) {
+            curso = cursos[i];
+        }
+    }
+
     if (!aluno.nome || !aluno.sobrenome || !aluno.idade || !aluno.curso) {
         return "Dados Incompletos. Preencha todos os campos"
     }
@@ -95,7 +105,7 @@ function validarDados(aluno) {
         return "Campo 'Sobrenome' possui inconsistências que não permitem a gravação"
     }
 
-    if (aluno.curso.length === 0 || typeof aluno.curso !== 'string' || (aluno.curso.split("").every((x) => x === " "))) {
+    if (aluno.curso.length === 0 || typeof aluno.curso !== 'string' || !curso || (aluno.curso.split("").every((x) => x === " "))) {
         return "Campo 'Curso' possui inconsistências que não permitem a gravação"
     }
 
